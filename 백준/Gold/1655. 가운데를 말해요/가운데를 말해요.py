@@ -1,21 +1,23 @@
 import sys
 import heapq
 
-cnt = int(sys.stdin.readline())
-left, right = [], [] 
+n = int(input())
+left = []  
+right = [] 
 
-for i in range(cnt):
-  num = int(sys.stdin.readline())
-  
-  if len(left) == len(right):
-    heapq.heappush(left, (-num, num))
-  else:
-    heapq.heappush(right, (num, num))
+for i in range(n):
+    x = int(sys.stdin.readline())
+    
+    if len(left) == 0 or -left[0] >= x:
+        heapq.heappush(left, -x)
+    else:
+        heapq.heappush(right, x)
 
-  if i > 0 and left[0][1] > right[0][1]:
-    temp_l = heapq.heappop(left)[1]
-    temp_r = heapq.heappop(right)[1]
-    heapq.heappush(left, (-temp_r, temp_r))
-    heapq.heappush(right, (temp_l, temp_l))
+    if len(left) > len(right) + 1:
+        temp = -heapq.heappop(left)
+        heapq.heappush(right, temp)
+    elif len(right) > len(left):
+        temp = heapq.heappop(right)
+        heapq.heappush(left, -temp)
 
-  print(left[0][1])
+    print(-left[0])
