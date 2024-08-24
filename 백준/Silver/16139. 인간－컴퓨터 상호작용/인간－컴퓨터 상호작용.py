@@ -1,3 +1,5 @@
+import sys
+iuput = sys.stdin.readline
 s = input()
 n = int(input())
 lst = []
