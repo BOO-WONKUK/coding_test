@@ -1,20 +1,17 @@
 def solution(k, tangerine):
-    answer = 0
-    lst = []
-    check = [0]*10000001
-    for i in tangerine:
-        check[i] += 1
-    # lst.sort(key = lambda x : x)
-    check.sort(reverse = True)
-    print(lst)
-    # for j in range(len(lst)-1, -1 ,-1):
-    for cnt in check:
-        # cnt = lst[j]
-        if cnt >= k:
-            answer += 1
-            return answer
-        else:
-            k -= cnt
-            answer += 1
+    tan_dict = {}
+    cnt = 0
     
-    return answer
+    for i in set(tangerine):
+        tan_dict[i] = 0 # 딕셔너리 생성
+    
+    for i in tangerine:
+        tan_dict[i] += 1 # 딕셔너리에 값 생성, 저장
+    
+    counts = sorted((i for i in tan_dict.values()), reverse = True) 
+    # 개수만 저장 후 sort
+    
+    for i,j in enumerate(counts): # 인덱스와 같이 for문으로 돌리기
+        cnt += j
+        if cnt >= k:
+            return i+1
